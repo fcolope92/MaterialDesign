@@ -1,7 +1,10 @@
 package com.example.android.materialdesign;
 
 import android.os.Bundle;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -9,6 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.widget.Toast;
 
 
@@ -17,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     ActionBar actionBar;
+    boolean click = false;
+    FloatingActionsMenu fab_menu;
+    FloatingActionButton fab_cloud, fab_camera, fab_share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +48,73 @@ public class MainActivity extends AppCompatActivity {
 
         setupNavigationDrawerContent(navigationView);
 
-        setFragment(0);
+        fab_menu = (FloatingActionsMenu) findViewById(R.id.menu_fab);
+        fab_cloud = (FloatingActionButton) findViewById(R.id.fab_cloud);
+        fab_camera = (FloatingActionButton) findViewById(R.id.fab_camera);
+        fab_share = (FloatingActionButton) findViewById(R.id.fab_share);
 
+        fab_cloud.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Se presionó cloud", Snackbar.LENGTH_LONG)
+                        .setAction("Subir", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                saludo();
+                            }
+                        }).show();
+            }
+        });
+
+        fab_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Se presionó cámara", Snackbar.LENGTH_LONG)
+                        .setAction("Foto", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                saludo();
+                            }
+                        }).show();
+            }
+        });
+
+        fab_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Se presionó compartir", Snackbar.LENGTH_LONG)
+                        .setAction("Compartir", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                saludo();
+                            }
+                        }).show();
+            }
+        });
+
+        /*fab_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                click = !click;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    Interpolator interpolador = AnimationUtils.loadInterpolator(getBaseContext(),
+                            android.R.interpolator.fast_out_slow_in);
+
+                    view.animate()
+                            .rotation(click ? 45f : 0)
+                            .setInterpolator(interpolador)
+                            .start();
+
+                }
+            }
+        });
+        */
+
+    }
+
+    public void saludo() {
+
+        Toast.makeText(this, "¯\\_(ツ)_/¯", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -67,27 +141,27 @@ public class MainActivity extends AppCompatActivity {
                         switch (menuItem.getItemId()) {
                             case R.id.item_navigation_drawer_inbox:
                                 menuItem.setChecked(true);
-                                setFragment(0);
                                 drawerLayout.closeDrawer(GravityCompat.START);
+                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.item_navigation_drawer_starred:
                                 menuItem.setChecked(true);
-                                setFragment(1);
                                 drawerLayout.closeDrawer(GravityCompat.START);
+                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.item_navigation_drawer_sent_mail:
                                 menuItem.setChecked(true);
-                                Toast.makeText(MainActivity.this, "Launching " + menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                             case R.id.item_navigation_drawer_drafts:
                                 menuItem.setChecked(true);
-                                Toast.makeText(MainActivity.this, "Launching " + menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                             case R.id.item_navigation_drawer_settings:
                                 menuItem.setChecked(true);
-                                Toast.makeText(MainActivity.this, "Launching " + menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
                                 drawerLayout.closeDrawer(GravityCompat.START);
                                 return true;
                             case R.id.item_navigation_drawer_help_and_feedback:
@@ -99,26 +173,5 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-    }
-
-    public void setFragment(int position) {
-        /*FragmentManager fragmentManager;
-        FragmentTransaction fragmentTransaction;*/
-        switch (position) {
-            case 0:
-                /*fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                InboxFragment inboxFragment = new InboxFragment();
-                fragmentTransaction.replace(R.id.fragment, inboxFragment);
-                fragmentTransaction.commit();*/
-                break;
-            case 1:
-                /*fragmentManager = getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                StarredFragment starredFragment = new StarredFragment();
-                fragmentTransaction.replace(R.id.fragment, starredFragment);
-                fragmentTransaction.commit();*/
-                break;
-        }
     }
 }
