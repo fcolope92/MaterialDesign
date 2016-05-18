@@ -1,37 +1,41 @@
 package com.example.android.materialdesign;
 
 import android.os.Bundle;
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.view.animation.Interpolator;
+import android.view.ViewGroup;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    DrawerLayout drawerLayout;
-    Toolbar toolbar;
-    ActionBar actionBar;
-    boolean click = false;
-    FloatingActionsMenu fab_menu;
-    FloatingActionButton fab_cloud, fab_camera, fab_share;
+    private DrawerLayout drawerLayout;
+    private Toolbar toolbar;
+    private ActionBar actionBar;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager llm;
+    private GridLayoutManager glm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /************** ACTION BAR **************/
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -48,71 +52,36 @@ public class MainActivity extends AppCompatActivity {
 
         setupNavigationDrawerContent(navigationView);
 
-        fab_menu = (FloatingActionsMenu) findViewById(R.id.menu_fab);
-        fab_cloud = (FloatingActionButton) findViewById(R.id.fab_cloud);
-        fab_camera = (FloatingActionButton) findViewById(R.id.fab_camera);
-        fab_share = (FloatingActionButton) findViewById(R.id.fab_share);
+        /*************** RECYCLER VIEW ****************/
+        recyclerView = (RecyclerView)findViewById(R.id.rv);
+        recyclerView.setHasFixedSize(true);
 
-        fab_cloud.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Se presionó cloud", Snackbar.LENGTH_LONG)
-                        .setAction("Subir", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                saludo();
-                            }
-                        }).show();
-            }
-        });
+        //glm = new GridLayoutManager(this, 2);
 
-        fab_camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Se presionó cámara", Snackbar.LENGTH_LONG)
-                        .setAction("Foto", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                saludo();
-                            }
-                        }).show();
-            }
-        });
+        llm = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(llm);
 
-        fab_share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Se presionó compartir", Snackbar.LENGTH_LONG)
-                        .setAction("Compartir", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                saludo();
-                            }
-                        }).show();
-            }
-        });
-
-        /*fab_menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                click = !click;
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    Interpolator interpolador = AnimationUtils.loadInterpolator(getBaseContext(),
-                            android.R.interpolator.fast_out_slow_in);
-
-                    view.animate()
-                            .rotation(click ? 45f : 0)
-                            .setInterpolator(interpolador)
-                            .start();
-
-                }
-            }
-        });
-        */
-
+        AdapterCategories adapter = new AdapterCategories(initializeCategories());
+        recyclerView.setAdapter(adapter);
     }
 
-    public void saludo() {
+    private ArrayList<Category> initializeCategories() {
+        ArrayList<Category> categories = new ArrayList<>();
+        categories.add(new Category("Floating Action Button", "Floating Action Button Floating Action Button Floating Action Button Floating Action Button"));
+        categories.add(new Category("Floating Action Button", "Floating Action Button Floating Action Button Floating Action Button Floating Action Button"));
+        categories.add(new Category("Floating Action Button", "Floating Action Button Floating Action Button Floating Action Button Floating Action Button"));
+        categories.add(new Category("Floating Action Button", "Floating Action Button Floating Action Button Floating Action Button Floating Action Button"));
+        categories.add(new Category("Floating Action Button", "Floating Action Button Floating Action Button Floating Action Button Floating Action Button"));
+        categories.add(new Category("Floating Action Button", "Floating Action Button Floating Action Button Floating Action Button Floating Action Button"));
+        categories.add(new Category("Floating Action Button", "Floating Action Button Floating Action Button Floating Action Button Floating Action Button"));
+        categories.add(new Category("Floating Action Button", "Floating Action Button Floating Action Button Floating Action Button Floating Action Button"));
+        categories.add(new Category("Floating Action Button", "Floating Action Button Floating Action Button Floating Action Button Floating Action Button"));
+
+
+        return categories;
+    }
+
+    public void tostada() {
 
         Toast.makeText(this, "¯\\_(ツ)_/¯", Toast.LENGTH_LONG).show();
     }

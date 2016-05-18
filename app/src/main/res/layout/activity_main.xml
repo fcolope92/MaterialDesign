@@ -32,7 +32,8 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -43,53 +44,12 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ToolbarTheme" />
 
-        <!--<fragment
+
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:name="com.example.android.materialdesign.Main"
-            android:id="@+id/fragment_main"
-            android:layout_gravity="center"
-            android:layout="@layout/fragment_main" />-->
+            android:id="@+id/rv" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <com.getbase.floatingactionbutton.FloatingActionsMenu
-                    android:id="@+id/menu_fab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|bottom"
-                    android:layout_margin="@dimen/floating_button_margin"
-                    fab:fab_addButtonColorNormal="@color/md_pink_500"
-                    fab:fab_addButtonSize="normal">
-
-                    <com.getbase.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fab_cloud"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        fab:fab_addButtonColorNormal="@color/md_pink_300"
-                        fab:fab_icon="@drawable/ic_cloud_white_18dp"
-                        fab:fab_size="mini" />
-
-                    <com.getbase.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fab_share"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        fab:fab_addButtonColorNormal="@color/md_pink_300"
-                        fab:fab_icon="@drawable/ic_share_white_18dp"
-                        fab:fab_size="mini" />
-
-                    <com.getbase.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fab_camera"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        fab:fab_addButtonColorNormal="@color/md_pink_300"
-                        fab:fab_icon="@drawable/ic_photo_camera_white_18dp"
-                        fab:fab_size="mini" />
-
-                </com.getbase.floatingactionbutton.FloatingActionsMenu>
-
-            </FrameLayout>
 
         </LinearLayout>
 
