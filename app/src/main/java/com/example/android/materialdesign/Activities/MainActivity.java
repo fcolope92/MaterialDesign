@@ -1,4 +1,4 @@
-package com.example.android.materialdesign;
+package com.example.android.materialdesign.Activities;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.android.materialdesign.Adapter.AdapterCategories;
+import com.example.android.materialdesign.Class.Category;
+import com.example.android.materialdesign.Class.ImageConverter;
+import com.example.android.materialdesign.R;
 
 import java.util.ArrayList;
 
@@ -67,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
         AdapterCategories adapter = new AdapterCategories(initializeCategories());
         recyclerView.setAdapter(adapter);
-
-
 
     }
 
@@ -173,5 +176,4 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }

@@ -1,17 +1,15 @@
-package com.example.android.materialdesign;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.example.android.materialdesign.Class;
 
 /**
  * Created by flopez on 18-05-2016.
  */
 
 public class Category {
-    String title;
-    String detail;
 
-    Category(String title, String detail) {
+    public String title;
+    public String detail;
+
+    public Category(String title, String detail) {
         this.title = title;
         this.detail = detail;
     }

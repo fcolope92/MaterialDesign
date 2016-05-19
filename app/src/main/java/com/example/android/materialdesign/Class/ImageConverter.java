@@ -1,4 +1,4 @@
-package com.example.android.materialdesign;
+package com.example.android.materialdesign.Class;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
