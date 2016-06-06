@@ -3,7 +3,9 @@ package com.example.android.materialdesign.Activities;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -12,10 +14,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -36,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager llm;
     private boolean changeView;
     private NavigationView navigationView;
+    private boolean click = false;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +77,36 @@ public class MainActivity extends AppCompatActivity {
         llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
 
-        AdapterCategories adapter = new AdapterCategories(initializeCategories());
+        final AdapterCategories adapter = new AdapterCategories(initializeCategories());
         recyclerView.setAdapter(adapter);
+
+        /*************** FLOATING ACTION BUTTON ****************/
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                click = !click;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    Interpolator interpolador = AnimationUtils.loadInterpolator(getBaseContext(),
+                            android.R.interpolator.fast_out_slow_in);
+
+                    /*************** SNACKBAR ****************/
+                    Snackbar.make(view, "Pulsado el fab", Snackbar.LENGTH_LONG)
+                            .setAction("Action", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Toast.makeText(getBaseContext(), "Action",
+                                            Toast.LENGTH_SHORT).show();
+                                }}).show();
+
+                    view.animate()
+                            .rotation(click ? 45f : 0)
+                            .setInterpolator(interpolador)
+                            .start();
+                }
+            }
+        });
 
     }
 
@@ -132,6 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

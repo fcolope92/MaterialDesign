@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/cv_item"
         android:elevation="15dp"
-        app:cardBackgroundColor="@color/md_pink_500"
+        app:cardBackgroundColor="@color/md_purple_400"
         app:cardCornerRadius="5dp">
 
         <RelativeLayout
