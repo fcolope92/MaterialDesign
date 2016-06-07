@@ -1,7 +1,9 @@
 package com.example.android.materialdesign.Activities;
 
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -9,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView navigationView;
     private boolean click = false;
     private FloatingActionButton fab;
+    ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.navigation_drawer_layout);
+
+        drawerToggle = setupDrawerToggle();
+        drawerLayout.setDrawerListener(drawerToggle);
 
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         if (navigationView != null) {
@@ -86,10 +93,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                click = !click;
+                /*click = !click;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     Interpolator interpolador = AnimationUtils.loadInterpolator(getBaseContext(),
-                            android.R.interpolator.fast_out_slow_in);
+                            android.R.interpolator.fast_out_slow_in);*/
 
                     /*************** SNACKBAR ****************/
                     Snackbar.make(view, "Pulsado el fab", Snackbar.LENGTH_LONG)
@@ -98,18 +105,35 @@ public class MainActivity extends AppCompatActivity {
                                 public void onClick(View view) {
                                     Toast.makeText(getBaseContext(), "Action",
                                             Toast.LENGTH_SHORT).show();
-                                }}).show();
+                                }}).setActionTextColor(Color.YELLOW).show();
 
-                    view.animate()
+                    /*view.animate()
                             .rotation(click ? 45f : 0)
                             .setInterpolator(interpolador)
                             .start();
-                }
+                }*/
             }
         });
 
     }
 
+    private ActionBarDrawerToggle setupDrawerToggle() {
+        return new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open,  R.string.drawer_close);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggles
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
 
     private void insertUserIcon() {
         View header = LayoutInflater.from(this).inflate(R.layout.navigation_drawer_header, null);
